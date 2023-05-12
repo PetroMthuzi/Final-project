@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data_file = [
+    {'Month': 'January', 'Airlines': 'American Airlines', 'January 2022': 20554, 'January 2023': 26940, 'Difference': 6386, 'Percent': 31.07, 'Year to Date 2022': 20554, 'Year to Date 2023': 26940, 'Year to Date Difference': 6386, 'Year to Date Percent': 31.07},
+    {'Month': 'January', 'Airlines': 'Delta Airlines', 'January 2022': 13593, 'January 2023': 15746, 'Difference': 2153, 'Percent': 15.84, 'Year to Date 2022': 13593, 'Year to Date 2023': 15746, 'Year to Date Difference': 2153, 'Year to Date Percent': 15.84},
+    {'Month': 'January', 'Airlines': 'Southwest Airlines', 'January 2022': 13008, 'January 2023': 18766, 'Difference': 5758, 'Percent': 44.27, 'Year to Date 2022': 13008, 'Year to Date 2023': 18766, 'Year to Date Difference': 5758, 'Year to Date Percent': 44.27},
+    {'Month': 'January', 'Airlines': 'United Airlines', 'January 2022': 8063, 'January 2023': 10903, 'Difference': 2840, 'Percent': 35.22, 'Year to Date 2022': 8063, 'Year to Date 2023': 10903, 'Year to Date Difference': 2840, 'Year to Date Percent': 35.22},
+    {'Month': 'January', 'Airlines': 'Charters', 'January 2022': 0, 'January 2023': 0, 'Difference': 0, 'Percent': 0.00, 'Year to Date 2022': 0, 'Year to Date 2023': 0, 'Year to Date Difference': 0, 'Year to Date Percent': 0.00},
+    {'Month': 'January', 'Airlines': 'Allegiant Air', 'January 2022': 1335, 'January 2023': 147, 'Difference': -1188, 'Percent': -88.99, 'Year to Date 2022': 1335, 'Year to Date 2023': 147, 'Year to Date Difference': -1188, 'Year to Date Percent': -88.99},
+    {'Month': 'January', 'Airlines': 'Frontier Airlines', 'January 2022': 2251, 'January 2023': 1106, 'Difference': -1145, 'Percent': -50.87, 'Year to Date 2022': 2251, 'Year to Date 2023': 1106, 'Year to Date Difference': -1145, 'Year to Date Percent': -50.87},
+    {'Month': 'Total', 'Airlines': '', 'January 2022': 58804, 'January 2023': 73608, 'Difference': 14804, 'Percent': 25.18, 'Year to Date 2022': 58804, 'Year to Date 2023': 73608, 'Year to Date Difference': 14804, 'Year to Date Percent': 25.18}
+]
+
+# Extract the measurements into NumPy arrays
+airlines = [x["Airlines"] for x in data_file[:-1]]  # exclude the Total row
+jan_2022 = np.array([x["January 2022"] for x in data_file[:-1]])
+jan_2023 = np.array([x["January 2023"] for x in data_file[:-1]])
+
+# Create the plot
+fig, ax = plt.subplots(figsize=(8, 6))
+x = np.arange(len(airlines))
+bar_width = 0.35
+opacity = 0.8
+
+rects1 = ax.bar(x, jan_2022, bar_width,
+                alpha=opacity,
+                color='b',
+                label='January 2022')
+
+rects2 = ax.bar(x + bar_width, jan_2023, bar_width,
+                alpha=opacity,
+                color='g',
+                label='January 2023')
+
+ax.set_xlabel('Airlines')
+ax.set_ylabel('Passengers')
+ax.set_title('Passenger Traffic in January 2022 and 2023')
+ax.set_xticks(x + bar_width / 2)
+ax.set_xticklabels(airlines)
+ax.legend()
+
+plt.tight_layout()
+plt.show()
